@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { Talk, TimeSlot } from "../types/scheduler";
 import TalkCard from "./TalksCard";
 import TimeSlotCard from "./TimeSlotCard";
-import { CalendarIcon } from "./Icons";
 
 const ConferenceScheduler = () => {
   const [talks, setTalks] = useState<Talk[]>([
@@ -16,222 +15,7 @@ const ConferenceScheduler = () => {
       track: "JavaScript",
       slotId: "",
     },
-    {
-      id: "talk2",
-      title: "React Performance Tips",
-      speaker: "Mike Chen",
-      duration: 25,
-      track: "Java",
-      slotId: "",
-    },
-    {
-      id: "talk3",
-      title: "Building Scalable Systems",
-      speaker: "Alex Kumar",
-      duration: 25,
-      track: "Cloud",
-      slotId: "",
-    },
-    {
-      id: "talk4",
-      title: "talk4",
-      speaker: "talk4",
-      duration: 25,
-      track: ".Net",
-      slotId: "",
-    },
-    {
-      id: "talk5",
-      title: "talk5",
-      speaker: "talk5",
-      duration: 25,
-      track: "JavaScript",
-      slotId: "",
-    },
-    {
-      id: "talk6",
-      title: "talk6",
-      speaker: "talk6",
-      duration: 25,
-      track: "Java",
-      slotId: "",
-    },
-    {
-      id: "talk7",
-      title: "talk7",
-      speaker: "talk7",
-      duration: 25,
-      track: "Cloud",
-      slotId: "",
-    },
-    {
-      id: "talk8",
-      title: "talk8",
-      speaker: "talk8",
-      duration: 25,
-      track: ".Net",
-      slotId: "",
-    },
-    {
-      id: "talk9",
-      title: "talk9",
-      speaker: "talk9",
-      duration: 25,
-      track: "JavaScript",
-      slotId: "",
-    },
-    {
-      id: "talk10",
-      title: "talk10",
-      speaker: "talk10",
-      duration: 25,
-      track: "Java",
-      slotId: "",
-    },
-    {
-      id: "talk11",
-      title: "talk11",
-      speaker: "talk11",
-      duration: 25,
-      track: "Cloud",
-      slotId: "",
-    },
-    {
-      id: "talk12",
-      title: "talk12",
-      speaker: "talk12",
-      duration: 25,
-      track: ".Net",
-      slotId: "",
-    },
-    {
-      id: "talk111",
-      title: "Future of TypeScript",
-      speaker: "Sarah Johnson",
-      duration: 25,
-      track: "JavaScript",
-      slotId: "",
-    },
-    {
-      id: "talk211",
-      title: "React Performance Tips",
-      speaker: "Mike Chen",
-      duration: 25,
-      track: "Java",
-      slotId: "",
-    },
-    {
-      id: "talk311",
-      title: "Building Scalable Systems",
-      speaker: "Alex Kumar",
-      duration: 25,
-      track: "Cloud",
-      slotId: "",
-    },
-    {
-      id: "talk411",
-      title: "talk4",
-      speaker: "talk4",
-      duration: 25,
-      track: ".Net",
-      slotId: "",
-    },
-    {
-      id: "talk511",
-      title: "talk5",
-      speaker: "talk5",
-      duration: 25,
-      track: "JavaScript",
-      slotId: "",
-    },
-    {
-      id: "talk611",
-      title: "talk6",
-      speaker: "talk6",
-      duration: 25,
-      track: "Java",
-      slotId: "",
-    },
-    {
-      id: "talk711",
-      title: "talk7",
-      speaker: "talk7",
-      duration: 25,
-      track: "Cloud",
-      slotId: "",
-    },
-    {
-      id: "talk811",
-      title: "talk8",
-      speaker: "talk8",
-      duration: 25,
-      track: ".Net",
-      slotId: "",
-    },
-    {
-      id: "talk911",
-      title: "talk9",
-      speaker: "talk9",
-      duration: 25,
-      track: "JavaScript",
-      slotId: "",
-    },
-    {
-      id: "talk1011",
-      title: "talk10",
-      speaker: "talk10",
-      duration: 25,
-      track: "Java",
-      slotId: "",
-    },
-    {
-      id: "talk1111",
-      title: "talk11",
-      speaker: "talk11",
-      duration: 25,
-      track: "Cloud",
-      slotId: "",
-    },
-    {
-      id: "talk1211",
-      title: "talk12",
-      speaker: "talk12",
-      duration: 25,
-      track: ".Net",
-      slotId: "",
-    },
-    {
-      id: "break1",
-      title: "break",
-      speaker: "break",
-      duration: 10,
-      track: "any",
-      slotId: "",
-    },
-    {
-      id: "break11",
-      title: "break",
-      speaker: "break",
-      duration: 10,
-      track: "any",
-      slotId: "",
-    },
-    {
-      id: "break111",
-      title: "break",
-      speaker: "break",
-      duration: 10,
-      track: "any",
-      slotId: "",
-    },
-    {
-      id: "break1111",
-      title: "break",
-      speaker: "break",
-      duration: 10,
-      track: "any",
-      slotId: "",
-    },
+
     {
       id: "break2",
       title: "break",
@@ -275,6 +59,8 @@ const ConferenceScheduler = () => {
   ]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [numberOfTracks, setNumberOfTracks] = useState<number>(1);
+  const [trackNames, setTrackNames] = useState<string[]>(["Track 1"]);
 
   const generateTimeSlots = () => {
     const days = ["2025-09-25", "2025-09-26", "2025-09-27"];
@@ -283,15 +69,18 @@ const ConferenceScheduler = () => {
     const slots: TimeSlot[] = [];
 
     days.forEach((day) => {
-      for (let hour = startTime; hour < endTime; hour++) {
-        slots.push({
-          id: `${day}-${hour}`,
-          time: `${hour}:00`,
-          day: day,
-          talkIds: [],
-          remainingMinutes: 60,
-        });
-      }
+      trackNames.forEach((track) => {
+        for (let hour = startTime; hour < endTime; hour++) {
+          slots.push({
+            id: `${day}-${hour}-${track}`,
+            time: `${hour}:00`,
+            day: day,
+            track: track,
+            talkIds: [],
+            remainingMinutes: 60,
+          });
+        }
+      });
     });
     return slots;
   };
@@ -308,30 +97,93 @@ const ConferenceScheduler = () => {
     const draggedTalk = talks.find((talk) => talk.id === draggedTalkId);
     if (!draggedTalk) return;
 
-    const newTimeSlots = timeSlots.map((slot) => {
-      // Remove talk from previous slot if it exists
-      if (slot.talkIds.includes(draggedTalkId)) {
-        return {
-          ...slot,
-          talkIds: slot.talkIds.filter((id) => id !== draggedTalkId),
-          remainingMinutes: slot.remainingMinutes + draggedTalk.duration,
-        };
-      }
-      // Add talk to new slot if there's enough time
-      if (slot.id === slotId && slot.remainingMinutes >= draggedTalk.duration) {
-        return {
-          ...slot,
-          talkIds: [...slot.talkIds, draggedTalkId],
-          remainingMinutes: slot.remainingMinutes - draggedTalk.duration,
-        };
-      }
-      return slot;
-    });
+    const targetSlotIndex = timeSlots.findIndex((slot) => slot.id === slotId);
+    const targetSlot = timeSlots[targetSlotIndex];
 
-    setTimeSlots(newTimeSlots);
+    const existingTalks = targetSlot.talkIds
+      .map((id) => talks.find((t) => t.id === id))
+      .filter((t): t is Talk => t !== undefined);
+
+    const newTotalDuration =
+      existingTalks.reduce((sum, talk) => sum + talk.duration, 0) +
+      draggedTalk.duration;
+
+    const hoursNeeded = Math.ceil(newTotalDuration / 60);
+
+    const consecutiveSlots: TimeSlot[] = [];
+    for (let i = 0; i < hoursNeeded; i++) {
+      const nextSlot = timeSlots.find(
+        (slot) =>
+          slot.track === targetSlot.track &&
+          slot.day === targetSlot.day &&
+          parseInt(slot.time) === parseInt(targetSlot.time) + i
+      );
+      if (nextSlot) {
+        consecutiveSlots.push(nextSlot);
+      }
+    }
+
+    if (consecutiveSlots.length === hoursNeeded) {
+      const newTimeSlots = timeSlots.map((slot) => {
+        if (slot.talkIds.includes(draggedTalkId)) {
+          const updatedTalkIds = slot.talkIds.filter(
+            (id) => id !== draggedTalkId
+          );
+          const remainingTalks = updatedTalkIds
+            .map((id) => talks.find((t) => t.id === id))
+            .filter((t): t is Talk => t !== undefined);
+          const remainingDuration = remainingTalks.reduce(
+            (sum, talk) => sum + talk.duration,
+            0
+          );
+
+          return {
+            ...slot,
+            talkIds: updatedTalkIds,
+            remainingMinutes: 60 - (remainingDuration % 60),
+            mergedIntoId: undefined,
+          };
+        }
+
+        if (slot.id === targetSlot.id) {
+          return {
+            ...slot,
+            talkIds: [...slot.talkIds, draggedTalkId],
+            remainingMinutes: 60 - (newTotalDuration % 60),
+          };
+        }
+
+        if (
+          hoursNeeded > 1 &&
+          consecutiveSlots.slice(1).find((s) => s.id === slot.id)
+        ) {
+          return {
+            ...slot,
+            talkIds: [],
+            remainingMinutes: 0,
+            mergedIntoId: targetSlot.id,
+          };
+        }
+
+        if (
+          slot.mergedIntoId === targetSlot.id &&
+          !consecutiveSlots.slice(1).find((s) => s.id === slot.id)
+        ) {
+          return {
+            ...slot,
+            mergedIntoId: undefined,
+            remainingMinutes: 60,
+          };
+        }
+
+        return slot;
+      });
+
+      setTimeSlots(newTimeSlots);
+    }
+
     setDraggedTalkId(null);
   };
-
   const getUnscheduledTalks = () => {
     return talks.filter(
       (talk) => !timeSlots.some((slot) => slot.talkIds.includes(talk.id))
@@ -354,7 +206,6 @@ const ConferenceScheduler = () => {
     setTalks([...talks, newTalk]);
   };
 
-  // Add this outside the main ConferenceScheduler component
   const AddTalkModal = ({
     onClose,
     onSubmit,
@@ -376,7 +227,7 @@ const ConferenceScheduler = () => {
     };
 
     return (
-      <div className="fixed inset-0 bg-red-500 bg-opacity-50 flex items-center justify-center ">
+      <div className="fixed inset-0 bg-gray-300 bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white p-6 rounded-lg w-96">
           <h2 className="text-xl font-bold mb-4">Add New Talk</h2>
           <form onSubmit={handleSubmit}>
@@ -476,6 +327,39 @@ const ConferenceScheduler = () => {
                   />
                 )}
               </div>
+              <div className="mb-4 p-4 bg-white rounded-lg shadow">
+                <h3 className="text-lg font-semibold mb-2">
+                  Track Configuration
+                </h3>
+                <div className="flex items-center gap-4">
+                  <div>
+                    <label className="block text-sm mb-1">
+                      Number of Tracks:
+                    </label>
+                    <input
+                      type="number"
+                      min="1"
+                      max="10"
+                      value={numberOfTracks || 1}
+                      onChange={(e) => {
+                        const num = Math.max(
+                          1,
+                          Math.min(10, parseInt(e.target.value) || 1)
+                        );
+                        setNumberOfTracks(num);
+                        setTrackNames(
+                          Array.from(
+                            { length: num },
+                            (_, i) => `Track ${i + 1}`
+                          )
+                        );
+                        setTimeSlots(generateTimeSlots());
+                      }}
+                      className="border rounded px-2 py-1"
+                    />
+                  </div>
+                </div>
+              </div>
               {getUnscheduledTalks().map((talk) => (
                 <TalkCard
                   key={talk.id}
@@ -494,27 +378,41 @@ const ConferenceScheduler = () => {
               className="schedule-day card bg-white shadow-lg rounded-lg border border-blue-100 flex-1"
             >
               <div className="card-header bg-blue-600 p-4 rounded-t-lg">
-                <div className="day-header flex items-center gap-2">
-                  <CalendarIcon />
-                  <h2 className="card-title text-white font-semibold">
-                    {new Date(day).toLocaleDateString("en-US", {
-                      weekday: "long",
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </h2>
-                </div>
+                <h2 className="card-title text-white font-semibold">
+                  {new Date(day).toLocaleDateString()}
+                </h2>
               </div>
-              <div className="card-content">
-                {getDaySchedule(day).map((slot) => (
-                  <TimeSlotCard
-                    key={slot.id}
-                    slot={slot}
-                    talks={talks}
-                    onDrop={handleDrop}
-                    onDragStart={handleDragStart}
-                  />
+              <div
+                className="grid"
+                style={{
+                  gridTemplateColumns: `repeat(${numberOfTracks}, 1fr)`,
+                }}
+              >
+                {trackNames.map((track) => (
+                  <div key={track} className="track-column p-4">
+                    <h3 className="font-semibold mb-2">{track}</h3>
+                    <div
+                      style={{
+                        display: "grid",
+                        gridTemplateRows: "repeat(8, minmax(8rem, auto))",
+                        gap: "0.5rem",
+                        position: "relative",
+                      }}
+                    >
+                      {getDaySchedule(day)
+                        .filter((slot) => slot.track === track)
+                        .map((slot) => (
+                          <TimeSlotCard
+                            key={slot.id}
+                            slot={slot}
+                            talks={talks}
+                            onDrop={handleDrop}
+                            onDragStart={handleDragStart}
+                            startHour={9}
+                          />
+                        ))}
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
