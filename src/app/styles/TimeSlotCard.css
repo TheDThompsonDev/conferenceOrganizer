@@ -1,0 +1,20 @@
+.edit-button {
+  padding: 4px 8px;
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.create-talk-button {
+  width: 100%;
+  padding: 8px;
+  background: #f8f8f8;
+  border: 1px dashed #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.scheduled-talk {
+  position: relative;
+}
